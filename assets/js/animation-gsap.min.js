@@ -1,0 +1,16 @@
+/*!
+ * ScrollMagic v2.0.5 (2015-04-29)
+ * The javascript library for magical scroll interactions.
+ * (c) 2015 Jan Paepke (@janpaepke)
+ * Project Website: http://scrollmagic.io
+ *
+ * @version 2.0.5
+ * @license Dual licensed under MIT license and GPL.
+ * @author Jan Paepke - e-mail@janpaepke.de
+ *
+ * @file ScrollMagic GSAP Animation Plugin.
+ *
+ * requires: GSAP ~1.14
+ * Powered by the Greensock Animation Platform (GSAP): http://www.greensock.com/js
+ * Greensock License info at http://www.greensock.com/licensing/
+ */(function(e,t){typeof define=="function"&&define.amd?define(["ScrollMagic","TweenMax","TimelineMax"],t):typeof exports=="object"?(require("gsap"),t(require("scrollmagic"),TweenMax,TimelineMax)):t(e.ScrollMagic||e.jQuery&&e.jQuery.ScrollMagic,e.TweenMax||e.TweenLite,e.TimelineMax||e.TimelineLite)})(this,function(e,t,n){"use strict";var s="animation.gsap",o=window.console||{},i=Function.prototype.bind.call(o.error||o.log||function(){},o);e||i("("+s+") -> ERROR: The ScrollMagic main module could not be found. Please make sure it's loaded before this plugin or use an asynchronous loader like requirejs."),t||i("("+s+") -> ERROR: TweenLite or TweenMax could not be found. Please make sure GSAP is loaded before ScrollMagic or use an asynchronous loader like requirejs."),e.Scene.addOption("tweenChanges",!1,function(e){return!!e}),e.Scene.extend(function(){var e,a,o=this,i=function(){o._log&&(Array.prototype.splice.call(arguments,1,0,"("+s+")","->"),o._log.apply(this,arguments))};o.on("progress.plugin_gsap",function(){a()}),o.on("destroy.plugin_gsap",function(e){o.removeTween(e.reset)}),a=function(){if(e){var t=o.progress(),n=o.state();e.repeat&&e.repeat()===-1?n==="DURING"&&e.paused()?e.play():n!=="DURING"&&!e.paused()&&e.pause():t!=e.progress()&&(o.duration()===0?t>0?e.play():e.reverse():o.tweenChanges()&&e.tweenTo?e.tweenTo(t*e.duration()):e.progress(t).pause())}},o.setTween=function(s,r,c){arguments.length>1&&(arguments.length<3&&(c=r,r=1),s=t.to(s,r,c));try{n?l=new n({smoothChildTiming:!0}).add(s):l=s,l.pause()}catch{return i(1,"ERROR calling method 'setTween()': Supplied argument is not a valid TweenObject"),o}if(e&&o.removeTween(),e=l,s.repeat&&s.repeat()===-1&&(e.repeat(-1),e.yoyo(s.yoyo())),o.tweenChanges()&&!e.tweenTo&&i(2,"WARNING: tweenChanges will only work if the TimelineMax object is available for ScrollMagic."),e&&o.controller()&&o.triggerElement()&&o.loglevel()>=2){var l,d,u,h,m,f,p=t.getTweensOf(o.triggerElement()),g=o.controller().info("vertical");p.forEach(function(e){var n=e.vars.css||e.vars,s=g?n.top!==void 0||n.bottom!==void 0:n.left!==void 0||n.right!==void 0;if(s)return i(2,"WARNING: Tweening the position of the trigger element affects the scene timing and should be avoided!"),!1})}if(parseFloat(TweenLite.version)>=1.14)for(h=e.getChildren?e.getChildren(!0,!0,!1):[e],m=function(){i(2,"WARNING: tween was overwritten by another. To learn how to avoid this issue see here: https://github.com/janpaepke/ScrollMagic/wiki/WARNING:-tween-was-overwritten-by-another")},d=0;d<h.length;d++)f=h[d],u!==m&&(u=f.vars.onOverwrite,f.vars.onOverwrite=function(){u&&u.apply(this,arguments),m.apply(this,arguments)});return i(3,"added tween"),a(),o},o.removeTween=function(t){return e&&(t&&e.progress(0).pause(),e.kill(),e=void 0,i(3,"removed tween (reset: "+(t?"true":"false")+")")),o}})})
